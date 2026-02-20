@@ -46,34 +46,38 @@ These projects are already deployed, actively running, and providing daily value
 
 ## 🗺️ Roadmap & Plans
 
-The project is continuously evolving. The structure of this repository serves as the foundation for future improvements:
+The project is continuously evolving. The repository structure is designed to support modern DevOps/SRE practices:
 
-### Phase 1: Infrastructure as Code (IaC) 🛠️
-*   [ ] **Ansible (`configs/`):** Transitioning from bash scripts to playbooks for automated deployment of NFTables rules, SSH hardening, and Docker environments.
-*   [ ] **Terraform:** Declarative provisioning of VPS instances on Hetzner and IONOS.
+### Phase 1: Infrastructure as Code (IaC) & Secret Management 🛠️
+*   [ ] **Ansible (`configs/`):** Declarative management of server configurations (NFTables, SSH hardening, Docker environments) instead of manual bash scripts.
+*   [ ] **Terraform / OpenTofu:** Automated provisioning and management of cloud resources on Hetzner and IONOS.
+*   [ ] **Secret Management:** Implementing SOPS or HashiCorp Vault to securely store passwords and API keys within Git.
 
 ### Phase 2: Deep Observability 📊
-*   [ ] Deploying the **Grafana + Prometheus + Loki** stack.
-*   [ ] Centralizing telemetry from Proxmox (temperatures, disk wear) and cloud servers (SWAP, RAM loads) into a single unified dashboard.
+*   [ ] Deploying the **Prometheus + Grafana + Loki + Promtail** stack.
+*   [ ] Centralizing logs and telemetry (SWAP, RAM, temperatures, disk wear) from all nodes (Proxmox, Cloud VPS) into a unified dashboard.
+*   [ ] Setting up automated alerting via Telegram (using Alertmanager).
 
-### Phase 3: CI/CD Pipelines (`pipelines/`) ⚙️
-*   [ ] Setting up GitHub Actions for automated code testing before deployment (e.g., Python code linting in `light-monitor-kyiv`).
-*   [ ] Automated building and pushing of Docker images for custom services.
+### Phase 3: GitOps & CI/CD Automation (`pipelines/`) ⚙️
+*   [ ] **GitHub Actions:** Automated linting (Python, Bash) and security auditing (Trivy/Dependabot) prior to deployment.
+*   [ ] Automated building and publishing of custom Docker images (e.g., to GHCR).
+*   [ ] **GitOps:** Implementing mechanisms for automatic container updates on servers upon repository changes (Watchtower or hybrid pipelines).
 
-### Phase 4: High Availability (HA) & Backups 💾
-*   [ ] Fully automated cloud backups for LXC container configurations.
-*   [ ] Disaster Recovery scenario testing (restoring infrastructure from scratch using stored configurations).
+### Phase 4: High Availability (HA) & Disaster Recovery 💾
+*   [ ] Expanding **Zero Trust** access (configuring Tailscale ACLs and Cloudflare Zero Trust).
+*   [ ] Automated incremental backups (via Proxmox Backup Server or Restic) to encrypted cloud storage.
+*   [ ] Regular testing of Disaster Recovery scenarios (Bare Metal Recovery using stored IaC configurations).
 
 ---
 
 ## 📂 Repository Structure
 
-*   📂 `docs/` — Architectural Decision Records (ADR), guides, and documentation.
-*   📂 `configs/` — Configuration files (Ansible, Docker Compose, service configs).
-*   📂 `scripts/` — Automation utilities (bash/python scripts for security audits, SWAP monitoring, etc.).
-*   📂 `pipelines/` — CI/CD configuration files (GitHub Actions).
-*   📂 `diagrams/` — Network topologies and architectural diagrams.
-*   📂 `tests/` — Scripts for testing infrastructure security and integrity.
+*   📂 `docs/` — Architectural Decision Records (ADR), guides, and recovery playbooks.
+*   📂 `configs/` — IaC configurations (Ansible, Terraform, Docker Compose files).
+*   📂 `scripts/` — Utilities (security audit scripts, custom monitoring, backup scripts).
+*   📂 `pipelines/` — CI/CD configuration files (GitHub Actions) and GitOps manifests.
+*   📂 `diagrams/` — Network topologies and architectural diagrams (Mermaid/Draw.io).
+*   📂 `tests/` — Automated tests for infrastructure and security policies.
 
 ---
 > *"Automate everything you do twice. Monitor everything that matters."*
