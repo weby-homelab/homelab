@@ -39,7 +39,7 @@ These projects are already deployed, actively running, and providing daily value
 *   **Features:** Real-time air quality metrics (AQI, PM2.5/10 via OpenMeteo and SaveEcoBot), integration with Ubilling API, and a live alert map (alerts.in.ua).
 
 ### 📞 Secure VoIP Core
-*   **Status:** 🟢 Active (Containerized)
+*   **Status:** 🟢 Active (Containerized) | [Repository](https://github.com/weby-homelab/voip-installer)
 *   **Concept:** Deployment of highly secure Asterisk servers using Docker. Features automated installation, backups, and anti-bruteforce protection at the network core level (NFTables).
 
 ---
