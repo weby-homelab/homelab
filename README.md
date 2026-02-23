@@ -1,83 +1,110 @@
-# 🌌 Weby HomeLab: Інфраструктурна Матриця
+# 🌌 WEBy Home Lab: Інфраструктурна Матриця
 
-Ласкаво просимо до центрального репозиторію моєї домашньої лабораторії та хмарної інфраструктури. Це не просто набір серверів — це автоматизована, безпечна та відмовостійка екосистема, яка поєднує публічні хмарні вузли з локальними кластерами Proxmox через зашифровані тунелі.
+<p align="center">
+  <img src="https://img.shields.io/badge/Infrastructure-as--Code-blueviolet?style=for-the-badge&logo=ansible" alt="IaC">
+  <img src="https://img.shields.io/badge/Security-Zero--Trust-red?style=for-the-badge&logo=cloudflare" alt="Security">
+  <img src="https://img.shields.io/badge/Status-Active-success?style=for-the-badge" alt="Status">
+  <img src="https://img.shields.io/badge/2026-Ready-yellow?style=for-the-badge" alt="Year">
+</p>
 
-Тут зберігається код, конфігурації (Infrastructure as Code) та архітектурні рішення, які керують усім: від моніторингу якості повітря та електроенергії в Києві до захищеної VoIP-телефонії.
+Ласкаво просимо до центрального вузла екосистеми **WEBy Home Lab** — автоматизованої, безпечної та відмовостійкої інфраструктури, що об'єднує хмарні ресурси та локальні кластери в єдиний живий організм.
+
+Тут зберігається інтелект моєї лабораторії: від конфігурацій безпеки до систем моніторингу критичної ситуації в Києві.
 
 Доступна також [Англійська версія документації](README_ENG.md).
 
 ---
 
-## 🏗 Архітектура Системи
+## 🏗 Архітектура Екосистеми
 
-Інфраструктура розділена на кілька логічних зон, які безперебійно взаємодіють одна з одною через **Tailscale Mesh VPN** та **Cloudflare Tunnels**.
+Наша інфраструктура побудована на принципах **Hybrid Cloud** та **Zero Trust**. Всі вузли зв'язані через **Tailscale Mesh VPN** та захищені **Cloudflare Tunnels**.
 
-### ☁️ Хмарний Периметр (Hetzner та IONOS)
-Публічний периметр, який приймає зовнішній трафік. Максимально захищений за допомогою `NFTables` (Політика відкидання) та `Fail2Ban`.
-*   **Сервіси:** Docker-хости, Asterisk VoIP (з жорсткими обмеженнями PJSIP), Turnserver, Uptime Kuma для зовнішнього моніторингу.
-*   **Доступ:** Нестандартні SSH-порти (54322), вхід виключно за ED25519-ключами, форсовані `tmux`-сесії для надійності роботи.
+```mermaid
+graph TD
+    %% -- Styles --
+    classDef cloud fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    classDef local fill:#e3f2fd,stroke:#1565c0,stroke-width:2px
+    classDef engine fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px
+    classDef notify fill:#fffde7,stroke:#fbc02d,stroke-width:2px
 
-### 🏠 Локальне Ядро (Кластер Proxmox VE)
-Серце домашньої лабораторії. Віртуалізоване середовище, яке керує внутрішньою мережею та збереженням даних.
-*   **Ноди:** Надійний сервер (pve02) та бекап-нода на базі лептопа (pve01) з автоматичним моніторингом батареї.
-*   **Контейнери (LXC):** Мережева безпека (AdGuard Home), IT-Tools, NAS (SMB/NFS), ізольовані середовища для розробки.
+    %% -- Nodes --
+    subgraph Cloud ["☁️ Cloud Edge (Hetzner / IONOS)"]
+        direction TB
+        FLASH["⚡ Flash Monitor (Unified)"]
+        VOIP["📞 VoIP Core (Asterisk 22)"]
+        KUMA["📊 Uptime Kuma"]
+    end
 
----
+    subgraph Local ["🏠 Home Core (Proxmox Cluster)"]
+        direction TB
+        PVE["🖥️ PVE Node (LXC/VM)"]
+        ADG["🛡️ AdGuard Home"]
+        NAS["🗄️ Storage Cluster"]
+    end
 
-## 🚀 Поточні Реалізації
+    subgraph User ["📱 Access Layer"]
+        PWA["Web Dashboard (PWA)"]
+        TG["Telegram Bot API"]
+    end
 
-Ці проєкти вже розгорнуті, активно працюють та приносять щоденну користь.
+    %% -- Flows --
+    Local <==>|Tailscale Mesh| Cloud
+    Cloud <-->|Cloudflare Tunnel| PWA
+    FLASH -->|Intelligence| TG
+    Local -->|Stats| KUMA
+    VOIP -.->|Secure SIP| User
 
-### 🔆 Моніторинг Світла (v1.2.1)
-*   **Статус:** 🟢 Активно | [Репозиторій](https://github.com/weby-homelab/light-monitor-kyiv)
-*   **Суть:** Інтелектуальна система моніторингу електроенергії з Web-дашбордом (графіки "План проти Факту") та Telegram-ботом.
-*   **Можливості:** Аналіз графіків на 48 годин, виявлення відхилень від розкладу (точність увімкнень/вимкнень) та формування детальних добових і тижневих звітів.
-
-### 🛡️ Моніторинг Безпеки (v1.2.1)
-*   **Статус:** 🟢 Активно | [Репозиторій](https://github.com/weby-homelab/security-monitor-kyiv)
-*   **Суть:** Внутрішній дашборд безпеки (доступний лише через тунель).
-*   **Можливості:** Показники якості повітря в реальному часі (AQI, PM2.5/10 через OpenMeteo та SaveEcoBot), інтеграція з Ubilling API, жива мапа тривог (alerts.in.ua).
-
-### 📞 Захищене VoIP Ядро
-*   **Статус:** 🟢 Активно (Контейнеризація) | [Репозиторій](https://github.com/weby-homelab/voip-installer)
-*   **Суть:** Розгортання захищених Asterisk-серверів на базі Docker. Автоматизоване встановлення, резервне копіювання та захист від брутфорсу на рівні ядра мережі (NFTables).
-
----
-
-## 🗺️ Дорожня Карта та Плани
-
-Проєкт постійно еволюціонує. Поточна структура репозиторію підготовлена для впровадження сучасних практик:
-
-### Фаза 1: Інфраструктура як Код (IaC) та Управління Секретами 🛠️
-*   [ ] **Ansible (`configs/`):** Декларативне управління конфігураціями серверів (NFTables, SSH hardening, розгортання Docker-середовищ) замість ручних bash-скриптів.
-*   [ ] **Terraform / OpenTofu:** Автоматизоване створення та управління хмарними ресурсами на Hetzner та IONOS.
-*   [ ] **Управління Секретами:** Впровадження SOPS або HashiCorp Vault для безпечного зберігання паролів та API-ключів у Git.
-
-### Фаза 2: Глибока Обсерваваність (Observability) 📊
-*   [ ] Розгортання стеку **Prometheus + Grafana + Loki + Promtail**.
-*   [ ] Централізований збір логів та телеметрії (SWAP, RAM, температури, знос дисків) з усіх вузлів (Proxmox, хмарні VPS) в єдиний дашборд.
-*   [ ] Налаштування автоматичного алертингу в Telegram через Alertmanager.
-
-### Фаза 3: GitOps та Автоматизація CI/CD (`pipelines/`) ⚙️
-*   [ ] **GitHub Actions:** Автоматичний лінтинг (Python, Bash) та аудит безпеки (Trivy/Dependabot) коду перед розгортанням.
-*   [ ] Автоматична збірка та публікація власних Docker-образів (напр. GHCR).
-*   [ ] **GitOps:** Впровадження механізмів для автоматичного оновлення контейнерів на серверах при змінах у репозиторії (Watchtower або гібридні пайплайни).
-
-### Фаза 4: Відмовостійкість (HA) та Disaster Recovery 💾
-*   [ ] Розширення **Zero Trust** доступу (налаштування Tailscale ACLs та Cloudflare Zero Trust).
-*   [ ] Автоматизоване інкрементальне бекапування (через Proxmox Backup Server або Restic) у зашифроване хмарне сховище.
-*   [ ] Регулярне тестування сценаріїв аварійного відновлення ("Bare Metal Recovery" за допомогою збережених конфігів IaC).
+    %% -- Apply Styles --
+    class Cloud cloud
+    class Local local
+    class FLASH,VOIP,KUMA engine
+    class PWA,TG notify
+```
 
 ---
 
-## 📂 Структура Репозиторію
+## 🚀 Основні проекти
 
-*   📂 `docs/` — Архітектурні рішення (ADR), інструкції та плейбуки з відновлення.
-*   📂 `configs/` — IaC конфігурації (Ansible, Terraform, файли Docker Compose).
-*   📂 `scripts/` — Утиліти (скрипти для аудитів безпеки, кастомний моніторинг, бекапи).
-*   📂 `pipelines/` — Файли конфігурації CI/CD (GitHub Actions) та GitOps.
-*   📂 `diagrams/` — Топології мереж та архітектурні діаграми (Mermaid/Draw.io).
-*   📂 `tests/` — Автоматизовані тести інфраструктури та політик безпеки.
+Екосистема складається з кількох незалежних, але інтегрованих модулів:
+
+### ⚡ [Flash Monitor Kyiv](https://github.com/weby-homelab/flash-monitor-kyiv) (Флагман)
+**Уніфікована система безпеки та енергомоніторингу.**
+- **Статус:** 🟢 v1.2 Stable
+- **Суть:** Повністю автономний моніторинг світла, повітряних тривог та AQI.
+- **Фішка:** Локальний парсинг Yasno/ДТЕК та аналітика «План vs Факт».
+
+### 📊 [Light Monitor Kyiv](https://github.com/weby-homelab/light-monitor-kyiv)
+**Глибока аналітика енергомережі.**
+- **Суть:** Фокусується на статистичних звітах та точності дотримання графіків відключень.
+
+### 🛡️ [Security Monitor Kyiv](https://github.com/weby-homelab/security-monitor-kyiv)
+- **Суть:** Спеціалізований дашборд для настінних дисплеїв: тривоги, радіація, екологія.
+
+### 📞 [VoIP Installer](https://github.com/weby-homelab/voip-installer)
+- **Суть:** Автоматизоване розгортання захищеної телефонії Asterisk 22 у Docker.
 
 ---
-> *"Автоматизуй усе, що робиш двічі. Монітор усе, що має значення."*
+
+## 🖥️ Апаратний Стек
+
+| Вузол | Локація | Роль | ОС / Гіпервізор |
+| :--- | :--- | :--- | :--- |
+| **HTZNR (Primary)** | Німеччина | Edge Services, Flash Monitor | Ubuntu 24.04 LTS |
+| **IONOS-VPS** | Європа | Backup VoIP, DNS, Turnserver | Debian (Tmux Hardened) |
+| **PRXMX-02** | Home Lab | Центральне ядро, NAS, AdGuard | Proxmox VE 9.1 |
+| **PRXMX-01** | Home Lab | Backup Node (Battery Monitored) | Proxmox VE (Laptop) |
+
+---
+
+## 🗺️ Дорожня карта 2026
+
+- [ ] **Infrastructure as Code:** Повний перехід на Ansible плейбуки для всіх серверів.
+- [ ] **Secret Management:** Впровадження HashiCorp Vault для безпеки токенів.
+- [ ] **Observability:** Стек Prometheus + Grafana для візуалізації стану «заліза».
+- [ ] **AI Integration:** Впровадження Gemini API для інтелектуального аналізу логів.
+
+---
+<p align="center">
+  ✦ 2026 WEBy Home Lab ✦<br>
+  <i>"Автоматизуй усе, що робиш двічі. Монітор усе, що має значення."</i>
+</p>
