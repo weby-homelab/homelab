@@ -103,6 +103,6 @@ The ecosystem consists of several independent yet integrated modules:
 
 ---
 <p align="center">
-  ✦ 2026 WEBy Home Lab ✦<br>
-  <i>"Automate everything you do twice. Monitor everything that matters."</i>
+  © 2026 <a href="https://github.com/weby-homelab/homelab">Weby Homelab</a> — infrastructure that doesn’t give up<br>
+  Made with ❤️ in Kyiv under air raid sirens
 </p>
