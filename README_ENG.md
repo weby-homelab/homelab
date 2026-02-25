@@ -77,17 +77,16 @@ graph TD
 The ecosystem consists of several independent yet integrated modules:
 
 ### ⚡ [Flash Monitor Kyiv](https://github.com/weby-homelab/flash-monitor-kyiv) (Flagship)
-**Unified security and power monitoring system.**
-- **Status:** 🟢 v1.2 Stable
-- **Overview:** Fully autonomous monitoring of power, air raid alerts, and AQI.
-- **Key Feature:** Local Yasno/DTEK parsing and "Plan vs Fact" analytics.
+**Unified autonomous security and power monitoring system.**
+- **Status:** 🟢 **v1.4.14 Active** (Primary System)
+- **Overview:** Full integration of power monitoring, air raid alerts, and AQI into a single Docker-based solution.
+- **Key Feature:** High-precision graph accuracy tracking, PWA support, 100% autonomy without external API dependencies.
 
 ### 📊 [Light Monitor Kyiv](https://github.com/weby-homelab/light-monitor-kyiv)
-**Deep power grid analytics.**
-- **Overview:** Focuses on statistical reports and schedule compliance accuracy.
+- **Status:** ⛔ **Archived** (Server operation stopped, functionality merged into Flash Monitor).
 
 ### 🛡️ [Security Monitor Kyiv](https://github.com/weby-homelab/security-monitor-kyiv)
-- **Overview:** Specialized dashboard for wall displays: alerts, radiation, environment.
+- **Status:** ⛔ **Archived** (Server operation stopped, functionality merged into Flash Monitor).
 
 ### 📞 [VoIP Installer](https://github.com/weby-homelab/voip-installer)
 - **Overview:** Automated deployment of secure Asterisk 22 telephony in Docker.
