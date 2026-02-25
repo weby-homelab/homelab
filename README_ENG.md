@@ -9,7 +9,7 @@
 
 <br>
 
-# 🌌 WEBy Home Lab: Infrastructure Matrix
+# 🌌 Weby Homelab: Infrastructure Matrix
 
 <p align="center">
   <img src="https://img.shields.io/badge/Infrastructure-as--Code-blueviolet?style=for-the-badge&logo=ansible" alt="IaC">
@@ -18,7 +18,7 @@
   <img src="https://img.shields.io/badge/2026-Ready-yellow?style=for-the-badge" alt="Year">
 </p>
 
-Welcome to the central hub of **WEBy Home Lab** — an automated, secure, and resilient infrastructure ecosystem that bridges cloud resources and local clusters into a single living organism.
+Welcome to the central hub of **Weby Homelab** — an automated, secure, and resilient infrastructure ecosystem that bridges cloud resources and local clusters into a single living organism.
 
 This repository stores the intelligence of my lab: from security configurations to critical monitoring systems for Kyiv.
 
