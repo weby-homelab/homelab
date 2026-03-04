@@ -78,7 +78,7 @@ The ecosystem consists of several independent yet integrated modules:
 
 ### ⚡ [Flash Monitor Kyiv](https://github.com/weby-homelab/flash-monitor-kyiv) (Flagship)
 **Unified autonomous security and power monitoring system.**
-- **Status:** 🟢 **v1.4.14 Active** (Primary System)
+- **Status:** 🟢 **v1.11.3 Active** (Primary System)
 - **Overview:** Full integration of power monitoring, air raid alerts, and AQI into a single Docker-based solution.
 - **Key Feature:** High-precision graph accuracy tracking, PWA support, 100% autonomy without external API dependencies.
 
@@ -113,6 +113,6 @@ The ecosystem consists of several independent yet integrated modules:
 
 ---
 <p align="center">
-  © 2026 Weby Homelab — infrastructure that doesn’t give up.<br>
+  ✦ 2026 Weby Homelab ✦ — infrastructure that doesn’t give up.<br>
   Made with ❤️ in Kyiv under air raid sirens and blackouts...
 </p>
