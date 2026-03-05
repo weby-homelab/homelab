@@ -80,7 +80,7 @@ graph TD
 
 ### ⚡ [Flash Monitor Kyiv](https://github.com/weby-homelab/flash-monitor-kyiv) (Флагман)
 **Уніфікована автономна система енергомоніторингу та безпеки.**
-- **Статус:** 🟢 **v1.11.3 Active** (Основна система)
+- **Статус:** 🟢 **[![Latest Release](https://img.shields.io/github/v/release/weby-homelab/flash-monitor-kyiv?label=Version&color=brightgreen)](https://github.com/weby-homelab/flash-monitor-kyiv/releases/latest) Active** (Основна система)
 - **Суть:** Повне об'єднання функцій моніторингу світла, повітряних тривог та якості повітря (AQI) в одному Docker-контейнері.
 - **Особливість:** Розрахунок точності графіків до секунди, підтримка PWA, автономний парсинг без зовнішніх API.
 
