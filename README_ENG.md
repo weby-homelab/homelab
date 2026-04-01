@@ -84,7 +84,7 @@ graph TD
     Backup <==>|Encrypted Tunnel| TS
     
     FLASH -->|Alerts & Updates| TG
-    PING -->|Status Push (30s)| FLASH
+    PING -->|Status Push 30s| FLASH
     PING -->|Status Push| SVITLO
     
     FW -.->|Configures| HTZNR
