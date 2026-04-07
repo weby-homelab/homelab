@@ -14,7 +14,7 @@ Weby Homelab projects are designed for critical infrastructure monitoring and au
 ## Reporting a Security Vulnerability
 
 If you find a vulnerability in any project within the Weby Homelab ecosystem:
-- **Primary contact:** [REDACTED_EMAIL]
+- **Primary contact:** contact@srvrs.top
 - **Secondary contact (TG):** [REDACTED_TG]
 
 ---
