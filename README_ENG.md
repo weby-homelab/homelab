@@ -129,9 +129,9 @@ The ecosystem consists of several independent yet integrated modules that act as
 | Node | Location | Role | OS / Hypervisor |
 | :--- | :--- | :--- | :--- |
 | **HTZNR (Primary)** | Germany | Prod Edge (Flash, Niftywall, Arcane) | Ubuntu 24.04 LTS (Bare Metal) |
-| **PRXMX-02-LXC200**| Home Lab (Kyiv)| Prod Pings, Docker Testbed, AdGuard| Proxmox VE 9.1 (100.124.218.39)|
-| **IONOS** | Europe | Docker Test Node, Backup | Debian (194.164.198.173) |
-| **SRVRS-ONLINE** | Europe | Secondary Backup | Ubuntu (91.107.214.59) |
+| **PRXMX-02-LXC200**| Home Lab (Kyiv)| Prod Pings, Docker Testbed, AdGuard| Proxmox VE 9.1 (Tailscale IP)|
+| **IONOS** | Europe | Docker Test Node, Backup | Debian (Public IP) |
+| **SRVRS-ONLINE** | Europe | Secondary Backup | Ubuntu (Public IP) |
 
 ---
 

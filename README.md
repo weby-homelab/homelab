@@ -131,9 +131,9 @@ graph TD
 | Вузол | Локація | Роль | ОС / Гіпервізор |
 | :--- | :--- | :--- | :--- |
 | **HTZNR (Primary)** | Німеччина | Prod Edge (Flash, Niftywall, Arcane) | Ubuntu 24.04 LTS (Bare Metal) |
-| **PRXMX-02-LXC200**| Home Lab (Київ)| Prod Pings, Docker Testbed, AdGuard| Proxmox VE 9.1 (100.124.218.39)|
-| **IONOS** | Європа | Docker Test Node, Backup | Debian (194.164.198.173) |
-| **SRVRS-ONLINE** | Європа | Secondary Backup | Ubuntu (91.107.214.59) |
+| **PRXMX-02-LXC200**| Home Lab (Київ)| Prod Pings, Docker Testbed, AdGuard| Proxmox VE 9.1 (Tailscale IP)|
+| **IONOS** | Європа | Docker Test Node, Backup | Debian (Public IP) |
+| **SRVRS-ONLINE** | Європа | Secondary Backup | Ubuntu (Public IP) |
 
 ---
 
