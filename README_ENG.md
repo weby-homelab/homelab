@@ -145,7 +145,9 @@ The ecosystem consists of several independent yet integrated modules that act as
 - [ ] **IPv6 Rollout & Advanced WAF:** Complete IPv6 stack deployment and harden Cloudflare WAF rules for PWA dashboards.
 
 ---
+
+<br>
 <p align="center">
-  ✦ 2026 Weby Homelab ✦ — infrastructure that doesn’t give up.<br>
-  Made with ❤️ in Kyiv under air raid sirens and blackouts...
+  Built in Ukraine under air raid sirens &amp; blackouts ⚡<br>
+  &copy; 2026 Weby Homelab
 </p>

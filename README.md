@@ -147,7 +147,9 @@ graph TD
 - [ ] **IPv6 Rollout & Advanced WAF:** Повне розгортання IPv6-стеку та посилення правил Cloudflare WAF для PWA панелей.
 
 ---
+
+<br>
 <p align="center">
-  ✦ 2026 Weby Homelab ✦ — інфраструктура, що не здається.<br>
-  Зроблено з ❤️ у Києві під час сирен та блекаутів...
+  Built in Ukraine under air raid sirens &amp; blackouts ⚡<br>
+  &copy; 2026 Weby Homelab
 </p>
