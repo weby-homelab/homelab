@@ -151,16 +151,29 @@ The ecosystem consists of several independent yet integrated modules that act as
 
 ## 🗺️ 2026 Roadmap (Updated: July 2026)
 
+### ✅ Completed
 - [x] **Zero-Trust Security:** Comprehensive code audit, elimination of hardcoded secrets, closure of LFI vulnerabilities.
 - [x] **Smart Asynchronous Logic:** Implementation of async caching (FastAPI) to prevent deadlocks.
 - [x] **Power-Safety-UA v3 Evolution:** Full migration from Flash Monitor to Power-Safety-UA (FastAPI + Docker). Version v3.9.2.
-- [x] **Niftywall v3 Rewrite:** TypeScript rewrite with full nftables + Fail2Ban analytics.
-- [x] **SEO Initiative:** Web presence optimization across all 20+ repositories (robots.txt, sitemap, JSON-LD, topics).
-- [x] **Infrastructure Consolidation:** Decommissioned IONOS, SRVRS-ONLINE, PRXMX-03. Consolidated to HTZNR + PRXMX-01/02.
-- [ ] **Infrastructure as Code (IaC):** Full transition to Ansible playbooks to ensure idempotency across all servers (HTZNR, PRXMX-01, PRXMX-02).
-- [ ] **High Availability (HA):** Setup a failover cluster between HTZNR and PRXMX-01 to ensure continuous Power-Safety-UA uptime if the primary datacenter fails.
+- [x] **Niftywall v3 Rewrite:** Rewritten in TypeScript with full nftables support + Fail2Ban analytics.
+- [x] **SEO Initiative:** Web presence optimization for 20+ repositories (robots.txt, sitemap, JSON-LD, topics).
+- [x] **Infrastructure Consolidation:** Decommissioned IONOS, SRVRS-ONLINE, PRXMX-03. Consolidated on HTZNR + PRXMX-01/02.
+
+### 🔄 In Progress
+- [ ] **Infrastructure as Code (IaC):** Full transition to Ansible playbooks for idempotent management across all servers (HTZNR, PRXMX-01, PRXMX-02).
+- [ ] **High Availability (HA):** Failover cluster between HTZNR and PRXMX-01 for uninterrupted Power-Safety-UA operation if the primary datacenter goes down.
 - [ ] **AI-Driven Analytics:** Integrate Gemini / LLMs for automated analysis of Fail2Ban logs and Niftywall metrics (infrastructure self-healing).
-- [ ] **IPv6 Rollout & Advanced WAF:** Complete IPv6 stack deployment and harden Cloudflare WAF rules for PWA dashboards.
+- [ ] **IPv6 Rollout & Advanced WAF:** Full IPv6 stack deployment and hardened Cloudflare WAF rules for PWA dashboards.
+
+### 🧠 Local LLM & AI Agents (Q3–Q4 2026)
+- [ ] **Local LLM Inference Stack:** Deploy Ollama + Open WebUI + LiteLLM on PRXMX-02 for private AI with Qwen2.5 / DeepSeek models.
+- [ ] **AI Agentic Automation:** n8n + local LLM for autonomous log analysis (Fail2Ban, Niftywall), infrastructure self-healing, and intelligent alerting.
+- [ ] **Self-Sovereign AI:** All AI inference stays local — zero data leaves the homelab, full privacy and control.
+
+### 📈 Infrastructure & Monitoring (Q4 2026)
+- [ ] **Unified Observability Stack:** Prometheus + Grafana + Netdata for all node metrics, AI workloads, and Power-Safety-UA.
+- [ ] **K3s Container Orchestration:** Migrate Docker Compose services to lightweight Kubernetes (K3s) for scalability and resilience.
+- [ ] **AI-Driven Capacity Planning:** Automated trend analysis of CPU/RAM/disk usage for upgrade forecasting.
 
 ---
 
