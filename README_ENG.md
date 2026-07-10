@@ -189,17 +189,24 @@ The ecosystem consists of several independent yet integrated modules that act as
 
 ### 🔄 In Progress
 - [ ] **Infrastructure as Code (IaC):** Full transition to Ansible playbooks for idempotent management across all servers (HTZNR, PRXMX-01, PRXMX-02, WS).
-- [ ] **High Availability (HA):** Failover cluster between HTZNR and PRXMX-01 for uninterrupted Power-Safety-UA operation if the primary datacenter goes down.
-- [ ] **AI Agentic Automation:** n8n + local LLM (WS) for autonomous log analysis (Fail2Ban, Niftywall), infrastructure self-healing, and intelligent alerting.
+- [ ] **High Availability (HA):** Failover cluster between HTZNR and PRXMX-01 for uninterrupted Power-Safety-UA operation.
+- [ ] **AI Agentic Automation:** n8n + local LLM (WS) for autonomous log analysis, self-healing, and intelligent alerting.
 - [ ] **IPv6 Rollout & Advanced WAF:** Full IPv6 stack deployment and hardened Cloudflare WAF rules for PWA dashboards.
 
-### 🧠 AI Agents & Observability (Q4 2026)
-- [ ] **Open WebUI Integration:** Install Open WebUI on WS for convenient access to local LLMs.
-- [ ] **Self-Sovereign AI Agents:** Connect local LLM to agents (n8n, OpenCode) — zero data leaves the homelab.
-- [ ] **Unified Observability Stack:** Prometheus + Grafana + Netdata for all nodes (HTZNR, PRXMX-01/02, WS), AI workloads, and Power-Safety-UA.
-- [ ] **K3s Container Orchestration:** Migrate Docker Compose services to lightweight Kubernetes (K3s) for scalability and resilience.
+### ☸️ GitOps & Container Orchestration (Q4 2026)
+- [ ] **K3s + ArgoCD GitOps Cluster:** Migrate Docker Compose services to K3s with ArgoCD pull orchestration. Git as single source of truth.
+- [ ] **Self-Hosted PaaS (Coolify):** Deploy Coolify on PRXMX-01 as a Heroku-like platform for rapid internal service deployment.
+- [ ] **Caddy Reverse Proxy:** Replace/supplement Cloudflare Tunnel for LAN services — automatic HTTPS, simpler config.
+- [ ] **Unified Observability Stack:** Prometheus + Grafana + Netdata for all nodes (HTZNR, PRXMX-01/02, WS) and AI workloads.
+- [ ] **Secrets Management:** Adopt SOPS + Age or External Secrets Operator for secure secret storage in Git.
 - [ ] **AI-Driven Capacity Planning:** Automated trend analysis of CPU/RAM/GPU/disk usage for upgrade forecasting.
-- [ ] **Automated Benchmarking Pipeline:** Scripts for regular automated testing of new MoE models (Qwen3.6, Ornith 2.x, Gemma 5) on WS with publication to `benchmarks/`.
+
+### 🧠 AI Agents & LLM Platform (Q4 2026)
+- [ ] **Open WebUI + LiteLLM:** Install Open WebUI and LiteLLM on WS as a unified API proxy for all local models.
+- [ ] **LiteLLM Gateway:** Single access point for Ornith, Qwen3.6, Gemma 4 with fallback, caching, and rate limiting.
+- [ ] **Self-Sovereign AI Agents:** Connect local LLM to agents (n8n, OpenCode) — zero data leaves the homelab.
+- [ ] **Always-On Agent Node (Jetson Orin):** Evaluate NVIDIA Jetson Orin Nano (67 TOPS @ 15W) for 24/7 AI agents without keeping WS online.
+- [ ] **Automated Benchmarking Pipeline:** Scripts for regular testing of new MoE models (Qwen3.6, Ornith 2.x, Gemma 5) on WS with publication to `benchmarks/`.
 
 ---
 

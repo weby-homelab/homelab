@@ -190,18 +190,25 @@ graph TD
   - BeeLlama DFlash vs MTP — DFlash програв (21-35% acc), MTP+q8_0 KV фінально
 
 ### 🔄 У процесі
-- [ ] **Infrastructure as Code (IaC):** Повний перехід на Ansible плейбуки для забезпечення ідемпотентності всіх серверів (HTZNR, PRXMX-01, PRXMX-02, WS).
-- [ ] **High Availability (HA):** Налаштування failover-кластера між HTZNR та PRXMX-01 для безперебійної роботи Power-Safety-UA у разі падіння основного ЦОД.
-- [ ] **AI Agentic Automation:** n8n + local LLM (WS) для автономного аналізу логів (Fail2Ban, Niftywall), самолікування інфраструктури та інтелектуальних сповіщень.
-- [ ] **IPv6 Rollout & Advanced WAF:** Повне розгортання IPv6-стеку та посилення правил Cloudflare WAF для PWA панелей.
+- [ ] **Infrastructure as Code (IaC):** Повний перехід на Ansible плейбуки для ідемпотентного керування всіма серверами (HTZNR, PRXMX-01, PRXMX-02, WS).
+- [ ] **High Availability (HA):** Failover-кластер HTZNR ↔ PRXMX-01 для безперебійної роботи Power-Safety-UA.
+- [ ] **AI Agentic Automation:** n8n + local LLM (WS) для автономного аналізу логів, самолікування та інтелектуальних сповіщень.
+- [ ] **IPv6 Rollout & Advanced WAF:** Повне розгортання IPv6-стеку та посилення Cloudflare WAF для PWA панелей.
 
-### 🧠 AI Agents & Observability (Q4 2026)
-- [ ] **Open WebUI Integration:** Встановлення та налаштування Open WebUI для зручного доступу до локальних LLM на WS.
+### ☸️ GitOps & Container Orchestration (Q4 2026)
+- [ ] **K3s + ArgoCD: GitOps-кластер:** Міграція Docker Compose сервісів на K3s з ArgoCD для pull-оркестрації. Git як єдине джерело правди (source of truth).
+- [ ] **Self-Hosted PaaS (Coolify):** Розгортання Coolify на PRXMX-01 як Heroku-подібної платформи для швидкого деплою внутрішніх сервісів.
+- [ ] **Caddy Reverse Proxy:** Заміна/доповнення Cloudflare Tunnel для LAN-сервісів — автоматичний HTTPS, простіша конфігурація.
+- [ ] **Unified Observability Stack:** Prometheus + Grafana + Netdata для метрик усіх нод (HTZNR, PRXMX-01/02, WS) та AI-ворклоадів.
+- [ ] **Secrets Management:** Впровадження SOPS + Age або External Secrets Operator для безпечного зберігання секретів у Git.
+- [ ] **AI-Driven Capacity Planning:** Автоматичний аналіз трендів CPU/RAM/GPU/дисків для прогнозування апгрейдів.
+
+### 🧠 AI Agents & LLM Platform (Q4 2026)
+- [ ] **Open WebUI + LiteLLM:** Встановлення Open WebUI та LiteLLM на WS для уніфікованого API-проксі до всіх локальних моделей.
+- [ ] **LiteLLM Gateway:** Єдина точка доступу до Ornith, Qwen3.6, Gemma 4 з fallback, кешуванням та rate limiting.
 - [ ] **Self-Sovereign AI Agents:** Підключення local LLM до агентів (n8n, OpenCode) — жодні дані не покидають homelab.
-- [ ] **Unified Observability Stack:** Prometheus + Grafana + Netdata для метрик усіх нод (HTZNR, PRXMX-01/02, WS), AI-ворклоадів та Power-Safety-UA.
-- [ ] **K3s Container Orchestration:** Міграція Docker Compose сервісів на легковаговий Kubernetes (K3s) для масштабування та відмовостійкості.
-- [ ] **AI-Driven Capacity Planning:** Автоматичний аналіз трендів використання CPU/RAM/GPU/дисків для прогнозування апгрейдів.
-- [ ] **Automated Benchmarking Pipeline:** Написання скриптів для регулярного автоматизованого тестування нових MoE-моделей (Qwen3.6, Ornith 2.x, Gemma 5) на WS з публікацією в `benchmarks/`.
+- [ ] **Always-On Agent Node (Jetson Orin):** Дослідження NVIDIA Jetson Orin Nano (67 TOPS @ 15W) для цілодобових AI-агентів без необхідності тримати WS увімкненою 24/7.
+- [ ] **Automated Benchmarking Pipeline:** Скрипти для регулярного тестування нових MoE-моделей (Qwen3.6, Ornith 2.x, Gemma 5) на WS з публікацією в `benchmarks/`.
 
 ---
 
