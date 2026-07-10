@@ -1,5 +1,12 @@
 # Changelog / Історія змін
 
+## [2026-07-10b] - Architecture & Network Refresh
+- **Mermaid Diagram:** Повністю перероблено топологію — прибрано IONOS, SRVRS-ONLINE, PRXMX-03 (декомісійовані).
+- **Network:** Додано Tailscale IP до всіх вузлів, прибрано публічні IP-адреси.
+- **Nodes:** PRXMX-02 → PRXMX-01 (Home Core); додано PRXMX-02 (Home Backup) та LXC 200.
+- **Services:** Оновлено склад сервісів на HTZNR (додано Karma, Dockhand, Weby-srvrs; прибрано Arcane, SSH Port Changer, Firewalld-GUI).
+- **Hardware Table:** Замінено на Tailscale IP-адреси замість локацій.
+
 ## [2026-07-10] - July 2026 Update
 - **Content Refresh:** Оновлено всі версії проектів (Power-Safety-UA v3.9.2, firewalld-gui v1.6.13, niftywall v3.4.0, voip-installer v4.7.9).
 - **Architecture:** Flash Monitor перейменовано на Power-Safety-UA у всіх згадках та діаграмах.

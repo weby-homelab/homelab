@@ -28,7 +28,7 @@
 
 ## 🏗 Архітектура Екосистеми (Mega-Topology)
 
-Наша інфраструктура розгорнута за принципами **Hybrid Cloud**, **Zero Trust** та **Secure by Design**. Всі вузли зв'язані через **Tailscale Mesh VPN**, керуються через централізовані правила (Niftywall / Firewalld), та захищені **Cloudflare Tunnels**.
+Наша інфраструктура розгорнута за принципами **Hybrid Cloud**, **Zero Trust** та **Secure by Design**. Всі вузли зв'язані через **Tailscale Mesh VPN** (приватні IP, без публічних точок входу), керуються через централізовані правила Niftywall, та захищені **Cloudflare Tunnels**.
 
 ```mermaid
 graph TD
@@ -44,57 +44,55 @@ graph TD
     TS(("🌐 Tailscale Mesh VPN")):::network
     CF(("🛡️ Cloudflare Tunnels & WAF")):::security
 
-    %% -- Node: HTZNR (Primary) --
-    subgraph HTZNR ["☁️ HTZNR (Primary Cloud Node - Ubuntu 24.04)"]
+    %% -- Node: HTZNR (Cloud PROD) --
+    subgraph HTZNR ["☁️ HTZNR (Cloud PROD — Hetzner, Tailscale: 100.83.52.116)"]
         direction TB
-        FW["🔥 Firewalld-GUI (Docker)"]:::security
-        NW["🛡️ Niftywall (Bare Metal)"]:::security
-        FLASH["⚡ Power-Safety-UA (v3.9.2)"]:::service
+        PSA["⚡ Power-Safety-UA (v3.9.2)"]:::service
+        NW["🛡️ Niftywall (v3.4.0)"]:::security
         VOIP["📞 Asterisk VoIP (v4.7.9)"]:::service
         KUMA["📊 Uptime Kuma"]:::service
-        ARC["🔮 Arcane"]:::service
-        SSH["🚪 SSH Port Changer"]:::security
+        KARMA["🏆 Karma Community App"]:::service
+        DOCK["🐳 Dockhand"]:::service
+        WSRV["🌍 Weby-srvrs"]:::service
     end
 
-    %% -- Node: PRXMX-02 (Home Core) --
-    subgraph PRXMX ["🏠 PRXMX-02 (Proxmox Cluster Core)"]
+    %% -- Node: PRXMX-01 (Home Core) --
+    subgraph PRXMX01 ["🏠 PRXMX-01 (Home Core — Proxmox, Tailscale: 100.86.120.114)"]
         direction TB
-        LXC["🐳 LXC-200 (Docker Testbed)"]:::service
-        ADG["🛑 AdGuard Home (DNS)"]:::network
-        NAS["🗄️ Storage Cluster"]:::service
+        LXC200["🐳 LXC 200 (Docker, 100.124.218.39)"]:::service
+        ADG["🛑 ADBlock-PD (DNS)"]:::network
+        AQD["🌤️ Air Quality Dashboard"]:::service
         PING["📡 Outage Ping Scripts"]:::service
     end
 
-    %% -- Node: Backup Clouds --
-    subgraph Backup ["☁️ Backup Cloud Edge"]
-        direction LR
-        IONOS["🇪🇺 IONOS (Docker Test/Backup)"]:::cloud
-        SRVRS["🌍 SRVRS-ONLINE (Backup)"]:::cloud
+    %% -- Node: PRXMX-02 (Home Backup) --
+    subgraph PRXMX02 ["🏠 PRXMX-02 (Home Backup — Proxmox, Tailscale: 100.122.16.1)"]
+        direction TB
+        SAMBA["🗄️ Samba NAS"]:::service
+        TRSN["📥 Transmission (LXC 400)"]:::service
+        BKP["💾 Pull Backups (PRXMX-01 → HDD)"]:::service
     end
 
     %% -- External Clients & APIs --
     subgraph Ext ["📱 External World"]
         direction TB
-        TG["💬 Telegram API (Prod/Test)"]:::external
+        TG["💬 Telegram API"]:::external
         WEB["🖥️ Web Admin PWA"]:::external
-        SVITLO["💡 Svitlobot API"]:::external
     end
 
     %% -- Connections --
-    HTZNR <==>|Encrypted Tunnel| TS
-    PRXMX <==>|Encrypted Tunnel| TS
-    Backup <==>|Encrypted Tunnel| TS
+    HTZNR <==>|Encrypted| TS
+    PRXMX01 <==>|Encrypted| TS
+    PRXMX02 <==>|Encrypted| TS
     
-    FLASH -->|Alerts & Updates| TG
-    PING -->|Status Push 30s| FLASH
-    PING -->|Status Push| SVITLO
+    PSA -->|Alerts & Updates| TG
+    PING -->|Status Push 30s| PSA
     
-    FW -.->|Configures| HTZNR
     NW -.->|Nftables Rules| HTZNR
     
-    CF -->|Secure HTTP/HTTPS Routing| FLASH
-    CF -->|Secure UI Access| FW
+    CF -->|Secure HTTP/HTTPS| PSA
     CF -->|Web Access| WEB
+    CF -->|Secure UI| WSRV
     
     VOIP -->|SIP| WEB
 ```
@@ -137,17 +135,18 @@ graph TD
 - **Light Monitor Kyiv / Security Monitor Kyiv:** Функціонал повністю поглинуто Power-Safety-UA v3+.
 - **UFW GUI:** Замінено на Firewalld-GUI та Niftywall задля кращої стабільності в Docker.
 - **Flash Monitor Kyiv (fm-ua):** Перейменовано та переписано на Power-Safety-UA (FastAPI + Docker).
+- **IONOS / SRVRS-ONLINE / PRXMX-03:** Декомісійовано (2026). Інфраструктура консолідована на HTZNR + PRXMX-01/02.
 
 ---
 
 ## 🖥️ Апаратний Стек (Липень 2026)
 
-| Вузол | Локація | Роль | ОС / Гіпервізор |
+| Вузол | Tailscale IP | Роль | ОС / Гіпервізор |
 | :--- | :--- | :--- | :--- |
-| **HTZNR (Primary)** | Німеччина | Prod Edge (Power-Safety-UA, Niftywall, Arcane) | Ubuntu 24.04 LTS (Bare Metal) |
-| **PRXMX-02-LXC200**| Home Lab (Київ)| Prod Pings, Docker Testbed, AdGuard| Proxmox VE 9.1 (Tailscale IP)|
-| **IONOS** | Європа | Docker Test Node, Backup | Debian (Public IP) |
-| **SRVRS-ONLINE** | Європа | Secondary Backup | Ubuntu (Public IP) |
+| **HTZNR** | `100.83.52.116` | Cloud PROD (Power-Safety-UA, Niftywall, VoIP, Kuma) | Ubuntu 24.04 LTS (Bare Metal) |
+| **PRXMX-01** | `100.86.120.114` | Home Core (LXC 200 Docker, ADBlock-PD, Ping Scripts) | Proxmox VE 9.2.3 |
+| **LXC 200** | `100.124.218.39` | Docker Testbed (Power-Safety-UA staging, Air Quality) | Debian LXC on PRXMX-01 |
+| **PRXMX-02** | `100.122.16.1` | Home Backup (Samba NAS, Transmission, Pull Backups) | Proxmox VE 9.2.3 |
 
 ---
 
@@ -158,8 +157,9 @@ graph TD
 - [x] **Power-Safety-UA v3 Evolution:** Повний перехід з Flash Monitor на Power-Safety-UA (FastAPI + Docker). Версія v3.9.2.
 - [x] **Niftywall v3 Rewrite:** Перепис на TypeScript з повною підтримкою nftables + Fail2Ban аналітики.
 - [x] **SEO Initiative:** Оптимізація веб-присутності всіх 20+ репозиторіїв (robots.txt, sitemap, JSON-LD, topics).
-- [ ] **Infrastructure as Code (IaC):** Повний перехід на Ansible плейбуки для забезпечення ідемпотентності всіх серверів (HTZNR, PRXMX, IONOS).
-- [ ] **High Availability (HA):** Налаштування failover-кластера між HTZNR та IONOS для безперебійної роботи Power-Safety-UA у разі падіння основного ЦОД.
+- [x] **Infrastructure Consolidation:** Декомісія IONOS, SRVRS-ONLINE, PRXMX-03. Консолідація на HTZNR + PRXMX-01/02.
+- [ ] **Infrastructure as Code (IaC):** Повний перехід на Ansible плейбуки для забезпечення ідемпотентності всіх серверів (HTZNR, PRXMX-01, PRXMX-02).
+- [ ] **High Availability (HA):** Налаштування failover-кластера між HTZNR та PRXMX-01 для безперебійної роботи Power-Safety-UA у разі падіння основного ЦОД.
 - [ ] **AI-Driven Analytics:** Впровадження Gemini / LLM для автоматичного аналізу логів Fail2Ban та метрик Niftywall (самолікування інфраструктури).
 - [ ] **IPv6 Rollout & Advanced WAF:** Повне розгортання IPv6-стеку та посилення правил Cloudflare WAF для PWA панелей.
 

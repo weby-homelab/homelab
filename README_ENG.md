@@ -26,7 +26,7 @@ This repository stores the intelligence of my lab: from security configurations 
 
 ## 🏗 Ecosystem Architecture (Mega-Topology)
 
-Our infrastructure is deployed based on **Hybrid Cloud**, **Zero Trust**, and **Secure by Design** principles. All nodes are interconnected via **Tailscale Mesh VPN**, governed by centralized rules (Niftywall / Firewalld), and secured through **Cloudflare Tunnels**.
+Our infrastructure is deployed based on **Hybrid Cloud**, **Zero Trust**, and **Secure by Design** principles. All nodes are interconnected via **Tailscale Mesh VPN** (private IPs only, no public endpoints), governed by centralized Niftywall rules, and secured through **Cloudflare Tunnels**.
 
 ```mermaid
 graph TD
@@ -42,57 +42,55 @@ graph TD
     TS(("🌐 Tailscale Mesh VPN")):::network
     CF(("🛡️ Cloudflare Tunnels & WAF")):::security
 
-    %% -- Node: HTZNR (Primary) --
-    subgraph HTZNR ["☁️ HTZNR (Primary Cloud Node - Ubuntu 24.04)"]
+    %% -- Node: HTZNR (Cloud PROD) --
+    subgraph HTZNR ["☁️ HTZNR (Cloud PROD — Hetzner, Tailscale: 100.83.52.116)"]
         direction TB
-        FW["🔥 Firewalld-GUI (Docker)"]:::security
-        NW["🛡️ Niftywall (Bare Metal)"]:::security
-        FLASH["⚡ Power-Safety-UA (v3.9.2)"]:::service
+        PSA["⚡ Power-Safety-UA (v3.9.2)"]:::service
+        NW["🛡️ Niftywall (v3.4.0)"]:::security
         VOIP["📞 Asterisk VoIP (v4.7.9)"]:::service
         KUMA["📊 Uptime Kuma"]:::service
-        ARC["🔮 Arcane"]:::service
-        SSH["🚪 SSH Port Changer"]:::security
+        KARMA["🏆 Karma Community App"]:::service
+        DOCK["🐳 Dockhand"]:::service
+        WSRV["🌍 Weby-srvrs"]:::service
     end
 
-    %% -- Node: PRXMX-02 (Home Core) --
-    subgraph PRXMX ["🏠 PRXMX-02 (Proxmox Cluster Core)"]
+    %% -- Node: PRXMX-01 (Home Core) --
+    subgraph PRXMX01 ["🏠 PRXMX-01 (Home Core — Proxmox, Tailscale: 100.86.120.114)"]
         direction TB
-        LXC["🐳 LXC-200 (Docker Testbed)"]:::service
-        ADG["🛑 AdGuard Home (DNS)"]:::network
-        NAS["🗄️ Storage Cluster"]:::service
+        LXC200["🐳 LXC 200 (Docker, 100.124.218.39)"]:::service
+        ADG["🛑 ADBlock-PD (DNS)"]:::network
+        AQD["🌤️ Air Quality Dashboard"]:::service
         PING["📡 Outage Ping Scripts"]:::service
     end
 
-    %% -- Node: Backup Clouds --
-    subgraph Backup ["☁️ Backup Cloud Edge"]
-        direction LR
-        IONOS["🇪🇺 IONOS (Docker Test/Backup)"]:::cloud
-        SRVRS["🌍 SRVRS-ONLINE (Backup)"]:::cloud
+    %% -- Node: PRXMX-02 (Home Backup) --
+    subgraph PRXMX02 ["🏠 PRXMX-02 (Home Backup — Proxmox, Tailscale: 100.122.16.1)"]
+        direction TB
+        SAMBA["🗄️ Samba NAS"]:::service
+        TRSN["📥 Transmission (LXC 400)"]:::service
+        BKP["💾 Pull Backups (PRXMX-01 → HDD)"]:::service
     end
 
     %% -- External Clients & APIs --
     subgraph Ext ["📱 External World"]
         direction TB
-        TG["💬 Telegram API (Prod/Test)"]:::external
+        TG["💬 Telegram API"]:::external
         WEB["🖥️ Web Admin PWA"]:::external
-        SVITLO["💡 Svitlobot API"]:::external
     end
 
     %% -- Connections --
-    HTZNR <==>|Encrypted Tunnel| TS
-    PRXMX <==>|Encrypted Tunnel| TS
-    Backup <==>|Encrypted Tunnel| TS
+    HTZNR <==>|Encrypted| TS
+    PRXMX01 <==>|Encrypted| TS
+    PRXMX02 <==>|Encrypted| TS
     
-    FLASH -->|Alerts & Updates| TG
-    PING -->|Status Push 30s| FLASH
-    PING -->|Status Push| SVITLO
+    PSA -->|Alerts & Updates| TG
+    PING -->|Status Push 30s| PSA
     
-    FW -.->|Configures| HTZNR
     NW -.->|Nftables Rules| HTZNR
     
-    CF -->|Secure HTTP/HTTPS Routing| FLASH
-    CF -->|Secure UI Access| FW
+    CF -->|Secure HTTP/HTTPS| PSA
     CF -->|Web Access| WEB
+    CF -->|Secure UI| WSRV
     
     VOIP -->|SIP| WEB
 ```
@@ -135,17 +133,18 @@ The ecosystem consists of several independent yet integrated modules that act as
 - **Light Monitor Kyiv / Security Monitor Kyiv:** Functionality fully absorbed into Power-Safety-UA v3+.
 - **UFW GUI:** Deprecated and replaced by Firewalld-GUI & Niftywall for better Docker compatibility.
 - **Flash Monitor Kyiv (fm-ua):** Renamed and rewritten as Power-Safety-UA (FastAPI + Docker).
+- **IONOS / SRVRS-ONLINE / PRXMX-03:** Decommissioned (2026). Infrastructure consolidated to HTZNR + PRXMX-01/02.
 
 ---
 
 ## 🖥️ Hardware Stack (July 2026)
 
-| Node | Location | Role | OS / Hypervisor |
+| Node | Tailscale IP | Role | OS / Hypervisor |
 | :--- | :--- | :--- | :--- |
-| **HTZNR (Primary)** | Germany | Prod Edge (Power-Safety-UA, Niftywall, Arcane) | Ubuntu 24.04 LTS (Bare Metal) |
-| **PRXMX-02-LXC200**| Home Lab (Kyiv)| Prod Pings, Docker Testbed, AdGuard| Proxmox VE 9.1 (Tailscale IP)|
-| **IONOS** | Europe | Docker Test Node, Backup | Debian (Public IP) |
-| **SRVRS-ONLINE** | Europe | Secondary Backup | Ubuntu (Public IP) |
+| **HTZNR** | `100.83.52.116` | Cloud PROD (Power-Safety-UA, Niftywall, VoIP, Kuma) | Ubuntu 24.04 LTS (Bare Metal) |
+| **PRXMX-01** | `100.86.120.114` | Home Core (LXC 200 Docker, ADBlock-PD, Ping Scripts) | Proxmox VE 9.2.3 |
+| **LXC 200** | `100.124.218.39` | Docker Testbed (Power-Safety-UA staging, Air Quality) | Debian LXC on PRXMX-01 |
+| **PRXMX-02** | `100.122.16.1` | Home Backup (Samba NAS, Transmission, Pull Backups) | Proxmox VE 9.2.3 |
 
 ---
 
@@ -156,8 +155,9 @@ The ecosystem consists of several independent yet integrated modules that act as
 - [x] **Power-Safety-UA v3 Evolution:** Full migration from Flash Monitor to Power-Safety-UA (FastAPI + Docker). Version v3.9.2.
 - [x] **Niftywall v3 Rewrite:** TypeScript rewrite with full nftables + Fail2Ban analytics.
 - [x] **SEO Initiative:** Web presence optimization across all 20+ repositories (robots.txt, sitemap, JSON-LD, topics).
-- [ ] **Infrastructure as Code (IaC):** Full transition to Ansible playbooks to ensure idempotency across all servers (HTZNR, PRXMX, IONOS).
-- [ ] **High Availability (HA):** Setup a failover cluster between HTZNR and IONOS to ensure continuous Power-Safety-UA uptime if the primary datacenter fails.
+- [x] **Infrastructure Consolidation:** Decommissioned IONOS, SRVRS-ONLINE, PRXMX-03. Consolidated to HTZNR + PRXMX-01/02.
+- [ ] **Infrastructure as Code (IaC):** Full transition to Ansible playbooks to ensure idempotency across all servers (HTZNR, PRXMX-01, PRXMX-02).
+- [ ] **High Availability (HA):** Setup a failover cluster between HTZNR and PRXMX-01 to ensure continuous Power-Safety-UA uptime if the primary datacenter fails.
 - [ ] **AI-Driven Analytics:** Integrate Gemini / LLMs for automated analysis of Fail2Ban logs and Niftywall metrics (infrastructure self-healing).
 - [ ] **IPv6 Rollout & Advanced WAF:** Complete IPv6 stack deployment and harden Cloudflare WAF rules for PWA dashboards.
 
