@@ -71,6 +71,14 @@ graph TD
         BKP["💾 Pull Backups (PRXMX-01 → HDD)"]:::service
     end
 
+    %% -- Node: WS (Local LLM Workstation) --
+    subgraph WS ["🖥️ WS (Local LLM Workstation — Ubuntu 26.04, Tailscale: 100.68.179.109)"]
+        direction TB
+        LLAMA["🧠 llama.cpp (Ornith-1.0-35B)"]:::service
+        OPENWEBUI["🌐 Open WebUI"]:::service
+        N8N["⚙️ n8n AI Automation"]:::service
+    end
+
     %% -- External Clients & APIs --
     subgraph Ext ["📱 External World"]
         direction TB
@@ -82,6 +90,11 @@ graph TD
     HTZNR <==>|Encrypted| TS
     PRXMX01 <==>|Encrypted| TS
     PRXMX02 <==>|Encrypted| TS
+    WS <==>|Encrypted| TS
+    
+    LLAMA -->|Inference API| N8N
+    OPENWEBUI -->|Chat Interface| LLAMA
+    N8N -->|Alerts & Actions| TG
     
     PSA -->|Alerts & Updates| TG
     PING -->|Status Push 30s| PSA
@@ -129,6 +142,13 @@ The ecosystem consists of several independent yet integrated modules that act as
 ### 🤖 [Safety Chat Bot](https://github.com/weby-homelab/safety-chat-bot)
 - **Overview:** Telegram chat moderation bot with captcha, admin notifications and Aiogram 3.
 
+### 🧠 [WS Local LLM Inference](https://github.com/weby-homelab/AI-HOMELAB)
+**Local LLM inference on a dedicated workstation.**
+- **Status:** 🟢 **Active** (llama.cpp systemd, Ornith-1.0-35B-Q6_K)
+- **Hardware:** Intel Xeon E5-2666 v3 (10C/20T) · 128 GB DDR4 · RTX 2080 Ti 11 GB
+- **Performance:** ~24 t/s (short context), ~9 t/s (2K+ context), 67.6 W avg
+- **Integration:** Tailscale VPN, n8n AI automation, Open WebUI (in progress)
+
 ### 🛡️ Archived Projects (Integrated)
 - **Light Monitor Kyiv / Security Monitor Kyiv:** Functionality fully absorbed into Power-Safety-UA v3+.
 - **UFW GUI:** Deprecated and replaced by Firewalld-GUI & Niftywall for better Docker compatibility.
@@ -146,6 +166,7 @@ The ecosystem consists of several independent yet integrated modules that act as
 | **PRXMX-01** | `100.64.0.2` | Home Core (LXC 200 Docker, ADBlock-PD, Ping Scripts) | Proxmox VE 9.2.3 |
 | **LXC 200** | `100.64.0.3` | Docker Testbed (Power-Safety-UA staging, Air Quality) | Debian LXC on PRXMX-01 |
 | **PRXMX-02** | `100.64.0.4` | Home Backup (Samba NAS, Transmission, Pull Backups) | Proxmox VE 9.2.3 |
+| **WS** | `100.68.179.109` | Local LLM Workstation (Ornith-1.0-35B, Open WebUI, n8n) | Ubuntu 26.04 LTS (Bare Metal) |
 
 ---
 
@@ -158,22 +179,21 @@ The ecosystem consists of several independent yet integrated modules that act as
 - [x] **Niftywall v3 Rewrite:** Rewritten in TypeScript with full nftables support + Fail2Ban analytics.
 - [x] **SEO Initiative:** Web presence optimization for 20+ repositories (robots.txt, sitemap, JSON-LD, topics).
 - [x] **Infrastructure Consolidation:** Decommissioned IONOS, SRVRS-ONLINE, PRXMX-03. Consolidated on HTZNR + PRXMX-01/02.
+- [x] **Local LLM Inference Stack:** Added WS (Xeon E5-2666 v3 + RTX 2080 Ti 11 GB) — llama.cpp + Ornith-1.0-35B, ~24 t/s. Full benchmark completed (07.2026).
 
 ### 🔄 In Progress
-- [ ] **Infrastructure as Code (IaC):** Full transition to Ansible playbooks for idempotent management across all servers (HTZNR, PRXMX-01, PRXMX-02).
+- [ ] **Infrastructure as Code (IaC):** Full transition to Ansible playbooks for idempotent management across all servers (HTZNR, PRXMX-01, PRXMX-02, WS).
 - [ ] **High Availability (HA):** Failover cluster between HTZNR and PRXMX-01 for uninterrupted Power-Safety-UA operation if the primary datacenter goes down.
-- [ ] **AI-Driven Analytics:** Integrate Gemini / LLMs for automated analysis of Fail2Ban logs and Niftywall metrics (infrastructure self-healing).
+- [ ] **AI Agentic Automation:** n8n + local LLM (WS) for autonomous log analysis (Fail2Ban, Niftywall), infrastructure self-healing, and intelligent alerting.
 - [ ] **IPv6 Rollout & Advanced WAF:** Full IPv6 stack deployment and hardened Cloudflare WAF rules for PWA dashboards.
 
-### 🧠 Local LLM & AI Agents (Q3–Q4 2026)
-- [ ] **Local LLM Inference Stack:** Deploy Ollama + Open WebUI + LiteLLM on PRXMX-02 for private AI with Qwen2.5 / DeepSeek models.
-- [ ] **AI Agentic Automation:** n8n + local LLM for autonomous log analysis (Fail2Ban, Niftywall), infrastructure self-healing, and intelligent alerting.
-- [ ] **Self-Sovereign AI:** All AI inference stays local — zero data leaves the homelab, full privacy and control.
-
-### 📈 Infrastructure & Monitoring (Q4 2026)
-- [ ] **Unified Observability Stack:** Prometheus + Grafana + Netdata for all node metrics, AI workloads, and Power-Safety-UA.
+### 🧠 AI Agents & Observability (Q4 2026)
+- [ ] **Open WebUI Integration:** Install Open WebUI on WS for convenient access to local LLMs.
+- [ ] **Self-Sovereign AI Agents:** Connect local LLM to agents (n8n, OpenCode) — zero data leaves the homelab.
+- [ ] **Unified Observability Stack:** Prometheus + Grafana + Netdata for all nodes (HTZNR, PRXMX-01/02, WS), AI workloads, and Power-Safety-UA.
 - [ ] **K3s Container Orchestration:** Migrate Docker Compose services to lightweight Kubernetes (K3s) for scalability and resilience.
-- [ ] **AI-Driven Capacity Planning:** Automated trend analysis of CPU/RAM/disk usage for upgrade forecasting.
+- [ ] **AI-Driven Capacity Planning:** Automated trend analysis of CPU/RAM/GPU/disk usage for upgrade forecasting.
+- [ ] **LLM Benchmarking Pipeline:** Regular automated testing of new models (Qwen2.5, DeepSeek, Llama 3.3) on WS.
 
 ---
 
