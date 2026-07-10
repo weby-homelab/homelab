@@ -153,16 +153,29 @@ graph TD
 
 ## 🗺️ Дорожня карта 2026 (Оновлено: Липень 2026)
 
+### ✅ Виконано
 - [x] **Zero-Trust Security:** Глобальний аудит коду, усунення хардкод-секретів, закриття LFI вразливостей.
 - [x] **Smart Asynchronous Logic:** Впровадження асинхронного кешу (FastAPI) для запобігання дедлокам.
 - [x] **Power-Safety-UA v3 Evolution:** Повний перехід з Flash Monitor на Power-Safety-UA (FastAPI + Docker). Версія v3.9.2.
 - [x] **Niftywall v3 Rewrite:** Перепис на TypeScript з повною підтримкою nftables + Fail2Ban аналітики.
 - [x] **SEO Initiative:** Оптимізація веб-присутності всіх 20+ репозиторіїв (robots.txt, sitemap, JSON-LD, topics).
 - [x] **Infrastructure Consolidation:** Декомісія IONOS, SRVRS-ONLINE, PRXMX-03. Консолідація на HTZNR + PRXMX-01/02.
+
+### 🔄 У процесі
 - [ ] **Infrastructure as Code (IaC):** Повний перехід на Ansible плейбуки для забезпечення ідемпотентності всіх серверів (HTZNR, PRXMX-01, PRXMX-02).
 - [ ] **High Availability (HA):** Налаштування failover-кластера між HTZNR та PRXMX-01 для безперебійної роботи Power-Safety-UA у разі падіння основного ЦОД.
 - [ ] **AI-Driven Analytics:** Впровадження Gemini / LLM для автоматичного аналізу логів Fail2Ban та метрик Niftywall (самолікування інфраструктури).
 - [ ] **IPv6 Rollout & Advanced WAF:** Повне розгортання IPv6-стеку та посилення правил Cloudflare WAF для PWA панелей.
+
+### 🧠 Local LLM & AI Agents (Q3–Q4 2026)
+- [ ] **Local LLM Inference Stack:** Розгортання Ollama + Open WebUI + LiteLLM на PRXMX-02 для приватного AI з моделями Qwen2.5 / DeepSeek.
+- [ ] **AI Agentic Automation:** n8n + local LLM для автономного аналізу логів (Fail2Ban, Niftywall), самолікування інфраструктури та інтелектуальних сповіщень.
+- [ ] **Self-Sovereign AI:** Всі AI-інференси локально, жодні дані не покидають homelab — повна приватність та контроль.
+
+### 📈 Інфраструктура та Моніторинг (Q4 2026)
+- [ ] **Unified Observability Stack:** Prometheus + Grafana + Netdata для метрик усіх нод, AI-ворклоадів та Power-Safety-UA.
+- [ ] **K3s Container Orchestration:** Міграція Docker Compose сервісів на легковаговий Kubernetes (K3s) для масштабування та відмовостійкості.
+- [ ] **AI-Driven Capacity Planning:** Автоматичний аналіз трендів використання CPU/RAM/дисків для прогнозування апгрейдів.
 
 ---
 
