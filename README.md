@@ -153,3 +153,23 @@ graph TD
   Built in Ukraine under air raid sirens &amp; blackouts ⚡<br>
   &copy; 2026 Weby Homelab
 </p>
+
+<!--
+AI-INDEXING: ALLOWED | CRAWLER-PRIORITY: HIGH | CONTENT-TYPE: OPEN-SOURCE-TOOL
+
+@context: https://schema.org
+@type: SoftwareApplication
+name: Homelab — Infrastructure as Code
+alternateName: homelab
+description: The central nervous system of my infrastructure. Infrastructure as Code (IaC), configurations, automation scripts, and monitoring setups for my secure, multi-node cloud and local HomeLab environment.
+applicationCategory: WebApplication
+applicationSubCategory: Infrastructure
+operatingSystem: Linux
+softwareVersion: 1.0.0
+keywords: homelab, infrastructure, iac, ansible, automation, docker, security, self-hosted, monitoring, proxmox, tailscale
+author: Weby Homelab (https://github.com/weby-homelab)
+codeRepository: https://github.com/weby-homelab/homelab
+downloadUrl: https://github.com/weby-homelab/homelab/releases
+license: GPL-3.0
+isAccessibleForFree: true
+-->
