@@ -144,9 +144,10 @@ The ecosystem consists of several independent yet integrated modules that act as
 
 ### 🧠 [WS Local LLM Inference](https://github.com/weby-homelab/AI-HOMELAB)
 **Local LLM inference on a dedicated workstation.**
-- **Status:** 🟢 **Active** (llama.cpp systemd, Ornith-1.0-35B-Q6_K)
+- **Status:** 🟢 **Active** (llama.cpp systemd, BeeLlama, Ornith-1.0-35B)
 - **Hardware:** Intel Xeon E5-2666 v3 (10C/20T) · 128 GB DDR4 · RTX 2080 Ti 11 GB
-- **Performance:** ~24 t/s (short context), ~9 t/s (2K+ context), 67.6 W avg
+- **Performance:** Up to 35 t/s (Gemma 4 26B), 25 t/s (Qwen3.6 35B / Ornith 1.0 35B)
+- **Tested models:** Gemma 4 26B, Qwen 3.6 35B A3B, Ornith 1.0 35B, BeeLlama DFlash
 - **Integration:** Tailscale VPN, n8n AI automation, Open WebUI (in progress)
 
 ### 🛡️ Archived Projects (Integrated)
@@ -179,7 +180,11 @@ The ecosystem consists of several independent yet integrated modules that act as
 - [x] **Niftywall v3 Rewrite:** Rewritten in TypeScript with full nftables support + Fail2Ban analytics.
 - [x] **SEO Initiative:** Web presence optimization for 20+ repositories (robots.txt, sitemap, JSON-LD, topics).
 - [x] **Infrastructure Consolidation:** Decommissioned IONOS, SRVRS-ONLINE, PRXMX-03. Consolidated on HTZNR + PRXMX-01/02.
-- [x] **Local LLM Inference Stack:** Added WS (Xeon E5-2666 v3 + RTX 2080 Ti 11 GB) — llama.cpp + Ornith-1.0-35B, ~24 t/s. Full benchmark completed (07.2026).
+- [x] **Local LLM Inference Stack & Benchmarks:** Added WS (Xeon E5-2666 v3 + RTX 2080 Ti 11 GB). Full MoE benchmark cycle completed (07.2026):
+  - Gemma 4 26B (Q4_K_M) — **35.09 t/s**, MTP acceptance 86.2%, prefill 486 t/s @ 46.5K ctx
+  - Qwen 3.6 35B A3B (Q4_K_M) — **25.20 t/s**, MTP 70.0%
+  - Ornith 1.0 35B (Q6_K) — **25.16 t/s**, MTP **97.5%** (best for agent workloads)
+  - BeeLlama DFlash vs MTP — DFlash lost (21-35% acc), MTP+q8_0 KV final
 
 ### 🔄 In Progress
 - [ ] **Infrastructure as Code (IaC):** Full transition to Ansible playbooks for idempotent management across all servers (HTZNR, PRXMX-01, PRXMX-02, WS).
@@ -193,7 +198,7 @@ The ecosystem consists of several independent yet integrated modules that act as
 - [ ] **Unified Observability Stack:** Prometheus + Grafana + Netdata for all nodes (HTZNR, PRXMX-01/02, WS), AI workloads, and Power-Safety-UA.
 - [ ] **K3s Container Orchestration:** Migrate Docker Compose services to lightweight Kubernetes (K3s) for scalability and resilience.
 - [ ] **AI-Driven Capacity Planning:** Automated trend analysis of CPU/RAM/GPU/disk usage for upgrade forecasting.
-- [ ] **LLM Benchmarking Pipeline:** Regular automated testing of new models (Qwen2.5, DeepSeek, Llama 3.3) on WS.
+- [ ] **Automated Benchmarking Pipeline:** Scripts for regular automated testing of new MoE models (Qwen3.6, Ornith 2.x, Gemma 5) on WS with publication to `benchmarks/`.
 
 ---
 
