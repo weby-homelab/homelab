@@ -45,7 +45,7 @@ graph TD
     CF(("🛡️ Cloudflare Tunnels & WAF")):::security
 
     %% -- Node: HTZNR (Cloud PROD) --
-    subgraph HTZNR ["☁️ HTZNR (Cloud PROD — Hetzner, Tailscale: 100.83.52.116)"]
+    subgraph HTZNR ["☁️ HTZNR (Cloud PROD — Hetzner, Tailscale: 100.64.0.1)"]
         direction TB
         PSA["⚡ Power-Safety-UA (v3.9.2)"]:::service
         NW["🛡️ Niftywall (v3.4.0)"]:::security
@@ -57,16 +57,16 @@ graph TD
     end
 
     %% -- Node: PRXMX-01 (Home Core) --
-    subgraph PRXMX01 ["🏠 PRXMX-01 (Home Core — Proxmox, Tailscale: 100.86.120.114)"]
+    subgraph PRXMX01 ["🏠 PRXMX-01 (Home Core — Proxmox, Tailscale: 100.64.0.2)"]
         direction TB
-        LXC200["🐳 LXC 200 (Docker, 100.124.218.39)"]:::service
+        LXC200["🐳 LXC 200 (Docker, 100.64.0.3)"]:::service
         ADG["🛑 ADBlock-PD (DNS)"]:::network
         AQD["🌤️ Air Quality Dashboard"]:::service
         PING["📡 Outage Ping Scripts"]:::service
     end
 
     %% -- Node: PRXMX-02 (Home Backup) --
-    subgraph PRXMX02 ["🏠 PRXMX-02 (Home Backup — Proxmox, Tailscale: 100.122.16.1)"]
+    subgraph PRXMX02 ["🏠 PRXMX-02 (Home Backup — Proxmox, Tailscale: 100.64.0.4)"]
         direction TB
         SAMBA["🗄️ Samba NAS"]:::service
         TRSN["📥 Transmission (LXC 400)"]:::service
@@ -143,10 +143,10 @@ graph TD
 
 | Вузол | Tailscale IP | Роль | ОС / Гіпервізор |
 | :--- | :--- | :--- | :--- |
-| **HTZNR** | `100.83.52.116` | Cloud PROD (Power-Safety-UA, Niftywall, VoIP, Kuma) | Ubuntu 24.04 LTS (Bare Metal) |
-| **PRXMX-01** | `100.86.120.114` | Home Core (LXC 200 Docker, ADBlock-PD, Ping Scripts) | Proxmox VE 9.2.3 |
-| **LXC 200** | `100.124.218.39` | Docker Testbed (Power-Safety-UA staging, Air Quality) | Debian LXC on PRXMX-01 |
-| **PRXMX-02** | `100.122.16.1` | Home Backup (Samba NAS, Transmission, Pull Backups) | Proxmox VE 9.2.3 |
+| **HTZNR** | `100.64.0.1` | Cloud PROD (Power-Safety-UA, Niftywall, VoIP, Kuma) | Ubuntu 24.04 LTS (Bare Metal) |
+| **PRXMX-01** | `100.64.0.2` | Home Core (LXC 200 Docker, ADBlock-PD, Ping Scripts) | Proxmox VE 9.2.3 |
+| **LXC 200** | `100.64.0.3` | Docker Testbed (Power-Safety-UA staging, Air Quality) | Debian LXC on PRXMX-01 |
+| **PRXMX-02** | `100.64.0.4` | Home Backup (Samba NAS, Transmission, Pull Backups) | Proxmox VE 9.2.3 |
 
 ---
 
