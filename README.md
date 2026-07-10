@@ -144,12 +144,13 @@ graph TD
 ### 🤖 [Safety Chat Bot](https://github.com/weby-homelab/safety-chat-bot)
 - **Суть:** Telegram-бот модерації чатів з капчею, адмін-сповіщеннями та Aiogram 3.
 
-### 🧠 [WS Local LLM Inference](https://github.com/weby-homelab/AI-HOMELAB)
-**Локальний LLM-інференс на виділеній робочій станції.**
-- **Статус:** 🟢 **Active** (llama.cpp systemd, BeeLlama, Ornith-1.0-35B)
+### 🧠 [AI-HOMELAB](https://github.com/weby-homelab/AI-HOMELAB)
+**Локальний AI-кластер та LLM-інференс на виділеній робочій станції WS.**
+- **Статус:** 🟢 **Active** (llama.cpp / BeeLlama, Ornith-1.0-35B, Qwen3.6)
 - **Хардвер:** Intel Xeon E5-2666 v3 (10C/20T) · 128 GB DDR4 · RTX 2080 Ti 11 GB
-- **Продуктивність:** до 35 t/s (Gemma 4 26B), 25 t/s (Qwen3.6 35B / Ornith 1.0 35B)
-- **Протестовано моделі:** Gemma 4 26B, Qwen 3.6 35B A3B, Ornith 1.0 35B, BeeLlama DFlash
+- **Продуктивність:** до 35 t/s (Gemma 4 26B), 25 t/s (Qwen3.6 / Ornith 1.0 35B)
+- **Моделі (протестовано):** Gemma 4 26B, Qwen 3.6 35B A3B, Ornith 1.0 35B, BeeLlama DFlash
+- **Бенчмарки:** [`benchmarks/`](https://github.com/weby-homelab/AI-HOMELAB/tree/main/benchmarks) — MoE порівняння, DFlash vs MTP, hardware efficiency
 - **Інтеграція:** Tailscale VPN, n8n AI automation, Open WebUI (в процесі)
 
 ### 🛡️ Архівовані Проєкти (Інтегровані)

@@ -142,12 +142,13 @@ The ecosystem consists of several independent yet integrated modules that act as
 ### 🤖 [Safety Chat Bot](https://github.com/weby-homelab/safety-chat-bot)
 - **Overview:** Telegram chat moderation bot with captcha, admin notifications and Aiogram 3.
 
-### 🧠 [WS Local LLM Inference](https://github.com/weby-homelab/AI-HOMELAB)
-**Local LLM inference on a dedicated workstation.**
-- **Status:** 🟢 **Active** (llama.cpp systemd, BeeLlama, Ornith-1.0-35B)
+### 🧠 [AI-HOMELAB](https://github.com/weby-homelab/AI-HOMELAB)
+**Local AI cluster & LLM inference on a dedicated WS workstation.**
+- **Status:** 🟢 **Active** (llama.cpp / BeeLlama, Ornith-1.0-35B, Qwen3.6)
 - **Hardware:** Intel Xeon E5-2666 v3 (10C/20T) · 128 GB DDR4 · RTX 2080 Ti 11 GB
-- **Performance:** Up to 35 t/s (Gemma 4 26B), 25 t/s (Qwen3.6 35B / Ornith 1.0 35B)
+- **Performance:** Up to 35 t/s (Gemma 4 26B), 25 t/s (Qwen3.6 / Ornith 1.0 35B)
 - **Tested models:** Gemma 4 26B, Qwen 3.6 35B A3B, Ornith 1.0 35B, BeeLlama DFlash
+- **Benchmarks:** [`benchmarks/`](https://github.com/weby-homelab/AI-HOMELAB/tree/main/benchmarks) — MoE comparison, DFlash vs MTP, hardware efficiency
 - **Integration:** Tailscale VPN, n8n AI automation, Open WebUI (in progress)
 
 ### 🛡️ Archived Projects (Integrated)
