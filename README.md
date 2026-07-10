@@ -134,7 +134,8 @@ graph TD
 ### 🛡️ Архівовані Проєкти (Інтегровані)
 - **Light Monitor Kyiv / Security Monitor Kyiv:** Функціонал повністю поглинуто Power-Safety-UA v3+.
 - **UFW GUI:** Замінено на Firewalld-GUI та Niftywall задля кращої стабільності в Docker.
-- **Flash Monitor Kyiv (fm-ua):** Перейменовано та переписано на Power-Safety-UA (FastAPI + Docker).
+- **Flash Monitor Kyiv:** Перейменовано та продовжено як Power-Safety-UA (FastAPI + Docker).
+- **fm-ua (Flash-Monitor-UA v2.0):** Це геть **інший** проєкт — P2P Energy Marketplace. НЕ має відношення до Flash Monitor Kyiv / Power-Safety-UA. Архівовано.
 - **IONOS / SRVRS-ONLINE / PRXMX-03:** Декомісійовано (2026). Інфраструктура консолідована на HTZNR + PRXMX-01/02.
 
 ---

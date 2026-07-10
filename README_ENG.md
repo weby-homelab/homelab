@@ -132,7 +132,8 @@ The ecosystem consists of several independent yet integrated modules that act as
 ### 🛡️ Archived Projects (Integrated)
 - **Light Monitor Kyiv / Security Monitor Kyiv:** Functionality fully absorbed into Power-Safety-UA v3+.
 - **UFW GUI:** Deprecated and replaced by Firewalld-GUI & Niftywall for better Docker compatibility.
-- **Flash Monitor Kyiv (fm-ua):** Renamed and rewritten as Power-Safety-UA (FastAPI + Docker).
+- **Flash Monitor Kyiv:** Renamed and continued as Power-Safety-UA (FastAPI + Docker).
+- **fm-ua (Flash-Monitor-UA v2.0):** A completely **different** project — P2P Energy Marketplace. NOT related to Flash Monitor Kyiv / Power-Safety-UA. Archived.
 - **IONOS / SRVRS-ONLINE / PRXMX-03:** Decommissioned (2026). Infrastructure consolidated to HTZNR + PRXMX-01/02.
 
 ---
