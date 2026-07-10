@@ -15,7 +15,7 @@
   <img src="https://img.shields.io/badge/Infrastructure-as--Code-blueviolet?style=for-the-badge&logo=ansible" alt="IaC">
   <img src="https://img.shields.io/badge/Security-Zero--Trust-red?style=for-the-badge&logo=cloudflare" alt="Security">
   <img src="https://img.shields.io/badge/Status-Active-success?style=for-the-badge" alt="Status">
-  <img src="https://img.shields.io/badge/Updated-April%202026-yellow?style=for-the-badge" alt="Updated">
+  <img src="https://img.shields.io/badge/Updated-July%202026-purple?style=for-the-badge" alt="Updated">
 </p>
 
 Ласкаво просимо до центрального вузла екосистеми **Weby Homelab** — автоматизованої, безпечної та відмовостійкої інфраструктури, що об'єднує хмарні ресурси та локальні кластери в єдиний живий організм.
@@ -49,8 +49,8 @@ graph TD
         direction TB
         FW["🔥 Firewalld-GUI (Docker)"]:::security
         NW["🛡️ Niftywall (Bare Metal)"]:::security
-        FLASH["⚡ Flash Monitor (v3.2.1)"]:::service
-        VOIP["📞 Asterisk VoIP (v4.6.0)"]:::service
+        FLASH["⚡ Power-Safety-UA (v3.9.2)"]:::service
+        VOIP["📞 Asterisk VoIP (v4.7.9)"]:::service
         KUMA["📊 Uptime Kuma"]:::service
         ARC["🔮 Arcane"]:::service
         SSH["🚪 SSH Port Changer"]:::security
@@ -101,48 +101,65 @@ graph TD
 
 ---
 
-## 🚀 Основні проекти (Оновлено: Квітень 2026)
+## 🚀 Основні проекти (Оновлено: Липень 2026)
 
 Екосистема складається з кількох незалежних, але інтегрованих модулів, що працюють як єдине ціле:
 
-### ⚡ [Flash Monitor Kyiv](https://github.com/weby-homelab/flash-monitor-kyiv) (Флагман)
+### ⚡ [Power-Safety-UA](https://github.com/weby-homelab/Power-Safety-UA) (Флагман)
 **Уніфікована автономна система енергомоніторингу та безпеки.**
-- **Статус:** 🟢 **Active v3.2.1**
-- **Суть:** Об'єднання функцій моніторингу світла, повітряних тривог, якості повітря (AQI). "Спокійний режим" (Quiet Mode) та "Safety Net" (35с таймаут пушу).
-- **Особливість:** PWA-панель (admin.srvrs.top), асинхронне кешування (відсутність дедлоків), висока безпека (усунуто LFI).
+- **Статус:** 🟢 **Active v3.9.2** (Docker Edition)
+- **Суть:** Об'єднання функцій моніторингу світла, повітряних тривог, якості повітря (AQI), радіаційного фону. "Спокійний режим" (Quiet Mode) та "Safety Net" (35с таймаут пушу).
+- **Особливість:** PWA-панель, Glassmorphism Admin Panel, асинхронне кешування (відсутність дедлоків), висока безпека (усунуто LFI).
+- **Еволюція:** Наступник Flash Monitor Kyiv (v2.x) — повністю переписаний на FastAPI + Docker.
 
 ### 🔥 [Firewalld-GUI](https://github.com/weby-homelab/firewalld-gui) та [Niftywall](https://github.com/weby-homelab/niftywall)
 **Системи мережевого захисту та Zero-Trust фільтрації.**
-- **Статус:** 🟢 **Active (v1.6.0 та v1.5.0)**
-- **Суть:** Firewalld-GUI надає графічний веб-інтерфейс для керування зонами та портами, тоді як Niftywall відповідає за безпосереднє застосування низькорівневих nftables-правил та аналітику Fail2Ban.
+- **Статус:** 🟢 **Active (v1.6.13 та v3.4.0)**
+- **Суть:** Firewalld-GUI надає графічний веб-інтерфейс для керування зонами та портами, тоді як Niftywall (переписаний на TypeScript) відповідає за безпосереднє застосування низькорівневих nftables-правил та аналітику Fail2Ban.
 - **Безпека:** Оновлено управління секретами, заблоковано атаки Path Traversal, безпечна генерація JWT токенів.
 
 ### 📞 [VoIP Installer](https://github.com/weby-homelab/voip-installer)
-- **Суть:** Автоматизоване розгортання захищеної телефонії Asterisk у Docker (v4.6.x). Захищено через Fail2Ban (asterisk-pjsip).
+- **Суть:** Автоматизоване розгортання захищеної телефонії Asterisk у Docker (v4.7.9). Захищено через Fail2Ban (asterisk-pjsip) та повний стек TLS/SRTP.
+
+### 🧠 [AI Second Brain GUI](https://github.com/weby-homelab/ai-second-brain-gui)
+- **Суть:** Веб-інтерфейс Obsidian (Second Brain) для доступу, пошуку та моніторингу бази знань. Glassmorphism-дизайн на FastAPI.
+
+### 📧 [Docker Mailserver GUI](https://github.com/weby-homelab/docker-mailserver-gui)
+- **Суть:** Zero-trust поштовий сервер з Traefik проксі, SnappyMail GUI та повним стеком безпеки.
+
+### 🛡️ [ADBlock-PD](https://github.com/weby-homelab/ADBlock-PD)
+- **Суть:** Хардкорний форк AdGuard Home з нульовою телеметрією. Повністю розірвано зв'язки з інфраструктурою AdGuard.
+
+### 🤖 [Safety Chat Bot](https://github.com/weby-homelab/safety-chat-bot)
+- **Суть:** Telegram-бот модерації чатів з капчею, адмін-сповіщеннями та Aiogram 3.
 
 ### 🛡️ Архівовані Проєкти (Інтегровані)
-- **Light Monitor Kyiv / Security Monitor Kyiv:** Функціонал повністю поглинуто Flash Monitor v3.2+.
+- **Light Monitor Kyiv / Security Monitor Kyiv:** Функціонал повністю поглинуто Power-Safety-UA v3+.
 - **UFW GUI:** Замінено на Firewalld-GUI та Niftywall задля кращої стабільності в Docker.
+- **Flash Monitor Kyiv (fm-ua):** Перейменовано та переписано на Power-Safety-UA (FastAPI + Docker).
 
 ---
 
-## 🖥️ Апаратний Стек (Квітень 2026)
+## 🖥️ Апаратний Стек (Липень 2026)
 
 | Вузол | Локація | Роль | ОС / Гіпервізор |
 | :--- | :--- | :--- | :--- |
-| **HTZNR (Primary)** | Німеччина | Prod Edge (Flash, Niftywall, Arcane) | Ubuntu 24.04 LTS (Bare Metal) |
+| **HTZNR (Primary)** | Німеччина | Prod Edge (Power-Safety-UA, Niftywall, Arcane) | Ubuntu 24.04 LTS (Bare Metal) |
 | **PRXMX-02-LXC200**| Home Lab (Київ)| Prod Pings, Docker Testbed, AdGuard| Proxmox VE 9.1 (Tailscale IP)|
 | **IONOS** | Європа | Docker Test Node, Backup | Debian (Public IP) |
 | **SRVRS-ONLINE** | Європа | Secondary Backup | Ubuntu (Public IP) |
 
 ---
 
-## 🗺️ Дорожня карта 2026 (Оновлена)
+## 🗺️ Дорожня карта 2026 (Оновлено: Липень 2026)
 
 - [x] **Zero-Trust Security:** Глобальний аудит коду, усунення хардкод-секретів, закриття LFI вразливостей.
-- [x] **Smart Asynchronous Logic:** Впровадження асинхронного кешу (FastAPI) для запобігання дедлокам у Flash Monitor.
+- [x] **Smart Asynchronous Logic:** Впровадження асинхронного кешу (FastAPI) для запобігання дедлокам.
+- [x] **Power-Safety-UA v3 Evolution:** Повний перехід з Flash Monitor на Power-Safety-UA (FastAPI + Docker). Версія v3.9.2.
+- [x] **Niftywall v3 Rewrite:** Перепис на TypeScript з повною підтримкою nftables + Fail2Ban аналітики.
+- [x] **SEO Initiative:** Оптимізація веб-присутності всіх 20+ репозиторіїв (robots.txt, sitemap, JSON-LD, topics).
 - [ ] **Infrastructure as Code (IaC):** Повний перехід на Ansible плейбуки для забезпечення ідемпотентності всіх серверів (HTZNR, PRXMX, IONOS).
-- [ ] **High Availability (HA):** Налаштування failover-кластера між HTZNR та IONOS для безперебійної роботи Flash Monitor у разі падіння основного ЦОД.
+- [ ] **High Availability (HA):** Налаштування failover-кластера між HTZNR та IONOS для безперебійної роботи Power-Safety-UA у разі падіння основного ЦОД.
 - [ ] **AI-Driven Analytics:** Впровадження Gemini / LLM для автоматичного аналізу логів Fail2Ban та метрик Niftywall (самолікування інфраструктури).
 - [ ] **IPv6 Rollout & Advanced WAF:** Повне розгортання IPv6-стеку та посилення правил Cloudflare WAF для PWA панелей.
 
@@ -166,7 +183,7 @@ applicationCategory: WebApplication
 applicationSubCategory: Infrastructure
 operatingSystem: Linux
 softwareVersion: 1.0.0
-keywords: homelab, infrastructure, iac, ansible, automation, docker, security, self-hosted, monitoring, proxmox, tailscale
+keywords: homelab, infrastructure, iac, ansible, automation, docker, security, self-hosted, monitoring, proxmox, tailscale, devops, seo, github
 author: Weby Homelab (https://github.com/weby-homelab)
 codeRepository: https://github.com/weby-homelab/homelab
 downloadUrl: https://github.com/weby-homelab/homelab/releases
